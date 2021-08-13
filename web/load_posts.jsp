@@ -4,6 +4,8 @@
     Author     : kajay002
 --%>
 
+<%@page import="com.tech.blog.entities.User"%>
+<%@page import="com.tech.blog.dao.LikeDao"%>
 <%@page import="com.tech.blog.entities.Post"%>
 <%@page import="java.util.List"%>
 <%@page import="com.tech.blog.helper.ConnectionProvider"%>
@@ -12,6 +14,8 @@
 <div class="row">
 
     <%
+        User u=(User)session.getAttribute("currentUser");
+        
         Thread.sleep(1000);
         PostDao d = new PostDao(ConnectionProvider.getConnection());
 
@@ -40,8 +44,11 @@
                 <!--<pre><%=p.getpCode()%></pre>-->
             </div>
             <div class="card-footer bg-info text-center">
+                <%
+                LikeDao ld=new LikeDao(ConnectionProvider.getConnection());
+                %>
                 <a href="show_blog_page.jsp?post_id=<%=p.getPid()%>" class="btn btn-outline-light btn-sm">Explore</a>
-                <a href="#!" class="btn btn-outline-light btn-sm"><i class="fa fa-thumbs-o-up"></i><span>10</span></a>
+                <a href="#!" onclick="doLike(<%=p.getPid() %> , <%=u.getId() %>)" class="btn btn-outline-light btn-sm"><i class="fa fa-thumbs-o-up"></i><span class="like-counter"><%= ld.countLikesOnPost(p.getPid())%></span></a>
                 <a href="#!" class="btn btn-outline-light btn-sm"><i class="fa fa-commenting-o"></i><span>20</span></a>
             </div>
         </div>

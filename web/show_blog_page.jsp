@@ -10,6 +10,7 @@
 <%@page import="com.tech.blog.entities.Post"%>
 <%@page import="com.tech.blog.helper.ConnectionProvider"%>
 <%@page import="com.tech.blog.dao.PostDao"%>
+<%@page import="com.tech.blog.dao.LikeDao"%>
 <%@page import="com.tech.blog.entities.User"%>
 <%@page errorPage="error_page.jsp"%>
 <%
@@ -151,7 +152,15 @@
                             </div>
                         </div>
                         <div class="card-footer bg-info text-center">
-                            <a href="#!" class="btn btn-outline-light btn-sm"><i class="fa fa-thumbs-o-up"></i><span>10</span></a>
+                            
+                            <%
+                            
+                            LikeDao ld=new LikeDao(ConnectionProvider.getConnection());
+                            
+                            
+                            %>
+                            
+                            <a href="#!" onclick="doLike(<%=p.getPid() %> , <%=user.getId() %>)" class="btn btn-outline-light btn-sm"><i class="fa fa-thumbs-o-up"></i><span class="like-counter"><%= ld.countLikesOnPost(p.getPid())%></span></a>
                             <a href="#!" class="btn btn-outline-light btn-sm"><i class="fa fa-commenting-o"></i><span>20</span></a>
                         </div>
                     </div>
