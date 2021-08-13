@@ -63,7 +63,7 @@ public class AddPostServlet extends HttpServlet {
                 
                 String path = request.getRealPath("/") + "blog_pics" + File.separator + part.getSubmittedFileName();
                 Helper.saveFile(part.getInputStream(), path);
-                out.println("Done...");
+                out.println("done");
             }else{
                 out.println("Error...");
             }
